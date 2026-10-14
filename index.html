@@ -431,7 +431,12 @@ function renderLedger() {
 }
 
 function deleteEntry(id) { saveLedgerData(getLedger().filter(t => String(t.id) !== String(id))); renderLedger(); }
-function clearLedger() { if (!confirm('Delete ALL local entries? This cannot be undone.')) return; saveLedgerData([]); renderLedger(); }
+function clearLedger() {
+  const input = prompt('Type DELETE to erase all local entries. This cannot be undone.');
+  if (input !== 'DELETE') { if (input !== null) alert('Nothing deleted - you must type DELETE exactly.'); return; }
+  saveLedgerData([]);
+  renderLedger();
+}
 
 // ---- Export ----
 function buildCSV(data) {
